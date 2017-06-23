@@ -8,4 +8,4 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/', routes)
 
-app.listen(3000, () => { console.log("running on 3000"); });
+app.listen(8000, () => { console.log("running on 8000"); });
