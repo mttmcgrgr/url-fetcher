@@ -1,0 +1,33 @@
+{
+  "name": "url-fetcher",
+  "version": "1.0.0",
+  "description": "Massdrop Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "kue": "^0.6.2",
+    "kue-scheduler": "^0.7.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "reds": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "nodemon": "^1.11.0",
+    "webpack": "^2.2.1"
+  }
+}
