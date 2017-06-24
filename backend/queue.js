@@ -1,20 +1,14 @@
 const kue = require('kue');
 const request = require('request')
 const url = require('url')
-
 const jobQueue = kue.createQueue()
+let htmlData;
 
 jobQueue.createJob = (req, res) => {
-
-  const data = {
+  const job = jobQueue.create('jobs', {
     url: req.body.url,
     status: "still processing",
     html: ""
-  }
-  const job = jobQueue.create('jobs', data)
-  .on('complete', function(){
-    job.data.status = "complete"
-    job.update()
   })
   .save( function(err){
      if(err){
@@ -22,12 +16,10 @@ jobQueue.createJob = (req, res) => {
      } else {
        res.json(job.id)
      }
-  });
+  })
 }
 
 jobQueue.checkJobStatus = (req, res) => {
-  let jobStatus;
-
   const job = kue.Job.get( req.params.id, function( err, job ) {
     if(err){
       res.sendStatus(err)
@@ -36,19 +28,16 @@ jobQueue.checkJobStatus = (req, res) => {
   });
 }
 
+
 jobQueue.process('jobs', function(job, ctx, done){
-  getHtml(job, done);
-});
-
-
-
-function getHtml(job, done){
   request(job.data.url, function(error, response, body) {
-    job.data.status = body
+    job.data.html = body
+    job.data.status = "complete"
     job.update()
   })
   done()
-}
+});
+
 
 
 
