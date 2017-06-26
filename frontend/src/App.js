@@ -38,7 +38,7 @@ class App extends Component {
   handleIdSubmit(e) {
   e.preventDefault();
     checkStatus(this.state.formId, job => {
-      if(job.html.length > 1){
+      if(job.html){
         this.setState({
           result: `status: complete`,
           html: job.html
@@ -46,6 +46,7 @@ class App extends Component {
       } else {
         this.setState({
           result: `status: ${job.status}`,
+          html: ""
         })
       }
     })

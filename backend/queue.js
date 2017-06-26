@@ -2,7 +2,16 @@ const kue = require('kue');
 const request = require('request')
 const url = require('url')
 const jobQueue = kue.createQueue()
-let htmlData;
+
+jobQueue.process('jobs',(job, done) => {
+  request(job.data.url, (error, response, body) => {
+    console.log(job.data.url, body)
+    job.data.html = body
+    job.data.status = "complete"
+    job.update()
+    });
+  done()
+});
 
 jobQueue.createJob = (req, res) => {
   const job = jobQueue.create('jobs', {
@@ -10,7 +19,7 @@ jobQueue.createJob = (req, res) => {
     status: "still processing",
     html: ""
   })
-  .save( function(err){
+  .save( err => {
      if(err){
        res.sendStatus(err)
      }
@@ -21,30 +30,23 @@ jobQueue.createJob = (req, res) => {
 jobQueue.checkJobStatus = (req, res) => {
   const job = kue.Job.get( req.params.id,( err, job ) => {
     if(err){
-      res.sendStatus(err)
+      res.send("status: bad ID try again")
     }
-    jobQueue.frequency(5)
     res.json(job.data)
   });
 }
 
-jobQueue.frequency = (seconds) => {
-  setInterval(jobQueue.process, seconds*100);
-}
-
 
 function getHtml(job, done){
+  console.log(job.data)
   request(job.data.url, (error, response, body) => {
     job.data.html = body
     job.data.status = "complete"
+    console.log(job.data)
     job.update()
   })
   done()
 }
-
-jobQueue.process('jobs',(job, done) => {
-  getHtml(job, done)
-});
 
 
 

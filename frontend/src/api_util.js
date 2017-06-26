@@ -27,7 +27,7 @@ export const checkStatus = (id, cb) => {
   fetch(`http://localhost:4000/jobs/${id}`)
   .then(response => {
       if (response.status >= 400) {
-          throw new Error("Bad response from server");
+            return "Bad ID try again";
       }
       return response.json();
   }).then(data => {
