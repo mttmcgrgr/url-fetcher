@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -21,4 +25,26 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button {
+  display: flex;
+  height: 30px;
+  width: 100px;
+  justify-content: center;
+  align-self: center;
+}
+
+.url-input {
+  width: 300px;
+}
+
+.id-input {
+
 }

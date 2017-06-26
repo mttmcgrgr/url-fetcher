@@ -13,9 +13,8 @@ jobQueue.createJob = (req, res) => {
   .save( function(err){
      if(err){
        res.sendStatus(err)
-     } else {
-       res.json(job.id)
      }
+   res.send(job.id)
   })
 }
 
@@ -29,13 +28,17 @@ jobQueue.checkJobStatus = (req, res) => {
 }
 
 
-jobQueue.process('jobs', function(job, ctx, done){
+function getHtml(job, done){
   request(job.data.url, function(error, response, body) {
     job.data.html = body
     job.data.status = "complete"
     job.update()
   })
   done()
+}
+
+jobQueue.process('jobs', function(job, done){
+  getHtml(job, done)
 });
 
 
