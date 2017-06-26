@@ -33,6 +33,26 @@
   justify-content: center;
 }
 
+.result-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.html-area {
+  padding-top: 50px;
+  width: 700px;
+  overflow: scroll;
+}
+.change-button {
+  display: flex;
+  height: 30px;
+  width: 150px;
+  justify-content: center;
+  align-self: center;
+}
+
 .button {
   display: flex;
   height: 30px;

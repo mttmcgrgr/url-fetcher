@@ -1,10 +1,11 @@
 require('isomorphic-fetch');
 
-export const createJob = (url) => {
-  fetch('http://localhost:8000/jobs', {
+export const createJob = (url, cb) => {
+  fetch('http://localhost:4000/jobs', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'credentials': 'same-origin'
     },
     body:{
       url: url
@@ -14,23 +15,23 @@ export const createJob = (url) => {
       if (response.status >= 400) {
         return "Bad response from server";
       }
-      return response.json()
+    return response.json()
   }).then(data => {
-    return data;
+    cb(JSON.stringify(data))
   })
 }
 
 
 
-export const checkStatus = (id) => {
-  fetch(`http://localhost:8000/jobs/${id}`)
+export const checkStatus = (id, cb) => {
+  fetch(`http://localhost:4000/jobs/${id}`)
   .then(response => {
       if (response.status >= 400) {
           throw new Error("Bad response from server");
       }
       return response.json();
+  }).then(data => {
+
+    cb(data)
   })
-  .then(status => {
-      console.log(status);
-  });
 }

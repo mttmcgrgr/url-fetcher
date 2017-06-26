@@ -8,8 +8,9 @@ class App extends Component {
     super(props)
     this.state = {
       url: "",
-      formId: null,
+      formId: "",
       result: "",
+      html: "",
       createForm: true
     }
     this.handleIdSubmit = this.handleIdSubmit.bind(this);
@@ -21,19 +22,33 @@ class App extends Component {
 
   handleUrlSubmit(e) {
   e.preventDefault();
-  const input = this.state.url
   if(this.isUrlValid(this.state.url)){
-  createJob(this.state.url, response => {
-    this.setState({
-      result: `job created - your job ID is ${response}`
-     })
+    createJob(this.state.url, id => {
+      this.setState({
+        result: `job created - your job ID is ${id}`
+      });
     })
-   }
+  } else {
+    this.setState({
+      result: "invalid URL try again"
+    })
+  }
   }
 
   handleIdSubmit(e) {
   e.preventDefault();
-
+    checkStatus(this.state.formId, job => {
+      if(job.html.length > 1){
+        this.setState({
+          result: `status: complete`,
+          html: job.html
+        })
+      } else {
+        this.setState({
+          result: `status: ${job.status}`,
+        })
+      }
+    })
   }
 
   update(field) {
@@ -89,7 +104,10 @@ class App extends Component {
   changeForm(){
     this.setState({
       createForm: !this.state.createForm,
-      result: ""
+      result: "",
+      html: "",
+      formId: "",
+      url: ""
     })
   }
 
@@ -118,7 +136,7 @@ class App extends Component {
 
 
   render() {
-    const button = this.state.createForm ? "Check Status " : "Create Job"
+    const button = this.state.createForm ? "Check Status Instead " : "Create Job Instead"
     return (
       <div className="App">
         <h3>Massdrop Challenge: Url Fetcher</h3>
@@ -127,10 +145,15 @@ class App extends Component {
         <br/>
          <div>- Or -</div>
         <br/>
-        <button onClick={this.changeForm} className="button">{button}</button>
+        <button onClick={this.changeForm} className="change-button">{button}</button>
         <br/>
-        <div>
-          {this.state.result}
+        <div className="result-area">
+          <div>
+              {this.state.result}
+          </div>
+          <div className="html-area">
+            {this.state.html}
+          </div>
         </div>
       </div>
     );

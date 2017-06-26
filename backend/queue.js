@@ -14,22 +14,27 @@ jobQueue.createJob = (req, res) => {
      if(err){
        res.sendStatus(err)
      }
-   res.send(job.id)
+   res.json(job.id)
   })
 }
 
 jobQueue.checkJobStatus = (req, res) => {
-  const job = kue.Job.get( req.params.id, function( err, job ) {
+  const job = kue.Job.get( req.params.id,( err, job ) => {
     if(err){
       res.sendStatus(err)
     }
+    jobQueue.frequency(5)
     res.json(job.data)
   });
 }
 
+jobQueue.frequency = (seconds) => {
+  setInterval(jobQueue.process, seconds*100);
+}
+
 
 function getHtml(job, done){
-  request(job.data.url, function(error, response, body) {
+  request(job.data.url, (error, response, body) => {
     job.data.html = body
     job.data.status = "complete"
     job.update()
@@ -37,9 +42,11 @@ function getHtml(job, done){
   done()
 }
 
-jobQueue.process('jobs', function(job, done){
+jobQueue.process('jobs',(job, done) => {
   getHtml(job, done)
 });
+
+
 
 
 

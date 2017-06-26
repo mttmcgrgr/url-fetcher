@@ -4,7 +4,6 @@ const jobQueue = require('./queue.js');
 
 
 router.post( '/jobs', jobQueue.createJob )
-
 router.get( '/jobs/:id', jobQueue.checkJobStatus )
 
 module.exports = router;
