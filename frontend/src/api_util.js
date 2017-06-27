@@ -1,7 +1,6 @@
 require('isomorphic-fetch');
 
 
-
 export const createJob = (data, cb) => {
   fetch('http://localhost:4000/jobs', {
     method: 'POST',
