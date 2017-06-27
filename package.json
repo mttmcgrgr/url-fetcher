@@ -24,7 +24,8 @@
     "kue-scheduler": "^0.7.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "reds": "^1.0.0"
+    "reds": "^1.0.0",
+    "url-parse": "^1.1.9"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

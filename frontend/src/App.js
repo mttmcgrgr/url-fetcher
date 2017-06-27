@@ -23,9 +23,9 @@ class App extends Component {
   handleUrlSubmit(e) {
   e.preventDefault();
   if(this.isUrlValid(this.state.url)){
-    createJob(this.state.url, id => {
+    createJob({url: this.state.url}, id => {
       this.setState({
-        result: `job created - your job ID is ${id}`
+        result: `job created! - your job ID is ${id}`
       });
     })
   } else {
@@ -123,16 +123,6 @@ class App extends Component {
       )
     }
   }
-
-  renderResults(){
-
-  }
-
-
-
-
-
-
 
 
 
