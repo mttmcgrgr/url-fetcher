@@ -40,7 +40,3 @@ The job queue exposes a REST API for adding jobs and checking their status / res
   endpoint which returns information about the job. If the job has been processed, the user will
   see "still processing" otherwise the user will see the job is "complete" along with the html from the job's
   url.
-
-### future implementations
-  future implementations will incorporate more specific error handling in front end backend (i.e. checking if id is outside of range
-  or if url is non-unique in the queue when creating a job)
