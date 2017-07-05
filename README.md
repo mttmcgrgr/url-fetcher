@@ -29,7 +29,7 @@ The job queue exposes a REST API for adding jobs and checking their status / res
 
 ### processing a job
   Kue automatically checks for queued jobs to process and processes them instantly by default, provided
-  there is an instance of kue with a `.process` function defined. Future implementations could use the [kue](https://www.npmjs.com/package/kue)
+  there is an instance of kue with a `process` function defined. Future implementations could use the [kue](https://www.npmjs.com/package/kue)
   "delay" job attribute or "paused processing" functionality to adjust processing intervals. Node package
   [kue-scheduler](https://www.npmjs.com/package/foundry-kue-scheduler) could also be another option
 
