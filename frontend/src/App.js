@@ -59,7 +59,7 @@ class App extends Component {
   }
 
   isUrlValid(input) {
-    var res = input.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    let res = input.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     if(res == null)
       return false;
     else
@@ -115,7 +115,7 @@ class App extends Component {
   renderFormType(){
     if(this.state.createForm){
       return(
-        this.renderUrlForm()
+        this.renderUrlForm();
       )
     } else {
       return(
@@ -128,6 +128,7 @@ class App extends Component {
 
   render() {
     const button = this.state.createForm ? "Check Status Instead " : "Create Job Instead"
+
     return (
       <div className="App">
         <h3>Massdrop Challenge: Url Fetcher</h3>
